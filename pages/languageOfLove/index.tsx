@@ -351,7 +351,7 @@ const questionList = [
   ]
 ]
 
-const ProductBridge = () => {
+const LanguageOfLoveQuestion = () => {
   const theme = useTheme();
   const router = useRouter()
 
@@ -365,11 +365,30 @@ const ProductBridge = () => {
   }
 
   const handleNext = () => {
-    console.log('activeStep: ' + activeStep)
-    console.log('maxSteps: ' + maxSteps)
-    console.log('answerList.length: ' + answerList.length)
     if (activeStep === maxSteps - 1 && answerList.length === maxSteps) {
-      alert("결과 페이지 준비중~")
+      let resultInfo = {
+        'A': 0,
+        'B': 0,
+        'C': 0,
+        'D': 0,
+        'E': 0,
+      }
+      answerList.forEach((a: string) => {
+        if (a !== undefined && a !== "") {
+          if (a === 'A') {
+            resultInfo.A ++
+          } else if (a === 'B') {
+            resultInfo.B ++
+          } else if (a === 'C') {
+            resultInfo.C ++
+          } else if (a === 'D') {
+            resultInfo.D ++
+          } else if (a === 'E') {
+            resultInfo.E ++
+          }
+        }
+      });
+      router.push('/languageOfLove/result?resultInfo=' + encodeURIComponent(JSON.stringify(resultInfo)))
       return
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -467,7 +486,7 @@ const ProductBridge = () => {
                         addToAnswerList(activeStep, v.value)
                         setTimeout(function () {
                           handleNext()
-                        }, 350)
+                        }, 250)
                       }}
                     >{translateTo === 'english' ? v.english : v.korean}</QuestionSelectDiv>
                   )
@@ -571,4 +590,4 @@ const StepperBottomButtonDiv = Styled.div`
   padding: 0px 0px calc(env(safe-area-inset-bottom));
 `
 
-export default ProductBridge;
+export default LanguageOfLoveQuestion;
