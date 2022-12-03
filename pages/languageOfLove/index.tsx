@@ -81,7 +81,7 @@ const questionList = [
   },
   {
     english: 'I can be comfortable holding hands, high-fiving, or putting my arm around someone I love.',
-    korean: '나는 좋아하는 사람들과 하이파이브를 하거나 손을 잡을 때 편한함을 느껴서 좋다',
+    korean: '나는 좋아하는 사람들과 하이파이브를 하거나 손을 잡을 때 편안함을 느껴서 좋다',
     value: 'E',
   }
   ],
@@ -376,15 +376,15 @@ const LanguageOfLoveQuestion = () => {
       answerList.forEach((a: string) => {
         if (a !== undefined && a !== "") {
           if (a === 'A') {
-            resultInfo.A ++
+            resultInfo.A++
           } else if (a === 'B') {
-            resultInfo.B ++
+            resultInfo.B++
           } else if (a === 'C') {
-            resultInfo.C ++
+            resultInfo.C++
           } else if (a === 'D') {
-            resultInfo.D ++
+            resultInfo.D++
           } else if (a === 'E') {
-            resultInfo.E ++
+            resultInfo.E++
           }
         }
       });
@@ -460,83 +460,89 @@ const LanguageOfLoveQuestion = () => {
         </AppBarDetailDiv>
       </AppBarDiv>
       <WrapBox>
-        <Paper
-          square
-          elevation={0}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            height: 100,
-            pl: 2,
-          }}
-        >
-          <Typography variant="h6" component="div">{translateTo === 'english' ? 'It’s more meaningful to me when…' : '두가지 중 나에게 더 의미있는 것은?' + '🥰'}</Typography>
-        </Paper>
-        <SelectDiv>
-          {
-            questionList[activeStep] !== null && questionList[activeStep] !== undefined &&
-            <>
-              {
+        <ContentDiv>
+          <Paper
+            square
+            elevation={0}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              height: 100,
+              pl: 2,
+            }}
+          >
+            <Typography variant="h6" component="div">{translateTo === 'english' ? 'It’s more meaningful to me when…' : '두가지 중 나에게 더 의미있는 것은?' + '🥰'}</Typography>
+          </Paper>
+          <SelectDiv>
+            {
+              questionList[activeStep] !== null && questionList[activeStep] !== undefined &&
+              <>
+                {
 
-                questionList[activeStep].map((v: any, i: any) => {
-                  return (
-                    <QuestionSelectDiv
-                      isSelected={isSeletedAnswer(activeStep, v.value)}
-                      onClick={() => {
-                        addToAnswerList(activeStep, v.value)
-                        setTimeout(function () {
-                          handleNext()
-                        }, 250)
-                      }}
-                    >{translateTo === 'english' ? v.english : v.korean}</QuestionSelectDiv>
-                  )
-                })
+                  questionList[activeStep].map((v: any, i: any) => {
+                    return (
+                      <QuestionSelectDiv
+                        isSelected={isSeletedAnswer(activeStep, v.value)}
+                        onClick={() => {
+                          addToAnswerList(activeStep, v.value)
+                          setTimeout(function () {
+                            handleNext()
+                          }, 250)
+                        }}
+                      >{translateTo === 'english' ? v.english : v.korean}</QuestionSelectDiv>
+                    )
+                  })
+                }
+              </>
+            }
+          </SelectDiv>
+          <StepperBottomButtonDiv>
+            <MobileStepper
+              variant="text"
+              steps={maxSteps}
+              position="static"
+              activeStep={activeStep}
+              nextButton={
+                <Button
+                  size="small"
+                  onClick={handleNext}
+                  disabled={activeStep === maxSteps - 1 || isAnswered(activeStep)}
+                >
+                  {translateTo === 'english' ? 'NEXT' : '다음'}
+                  {theme.direction === 'rtl' ? (
+                    <KeyboardArrowLeft />
+                  ) : (
+                    <KeyboardArrowRight />
+                  )}
+                </Button>
               }
-            </>
-          }
-        </SelectDiv>
-        <StepperBottomButtonDiv>
-          <MobileStepper
-            variant="progress"
-            steps={maxSteps}
-            position="static"
-            activeStep={activeStep}
-            nextButton={
-              <Button
-                size="small"
-                onClick={handleNext}
-                disabled={activeStep === maxSteps - 1 || isAnswered(activeStep)}
-              >
-                {translateTo === 'english' ? 'NEXT' : '다음'}
-                {theme.direction === 'rtl' ? (
-                  <KeyboardArrowLeft />
-                ) : (
-                  <KeyboardArrowRight />
-                )}
-              </Button>
-            }
-            backButton={
-              <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                {theme.direction === 'rtl' ? (
-                  <KeyboardArrowRight />
-                ) : (
-                  <KeyboardArrowLeft />
-                )}
-                {translateTo === 'english' ? 'BACK' : '이전'}
-              </Button>
-            }
-          />
-        </StepperBottomButtonDiv>
+              backButton={
+                <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                  {theme.direction === 'rtl' ? (
+                    <KeyboardArrowRight />
+                  ) : (
+                    <KeyboardArrowLeft />
+                  )}
+                  {translateTo === 'english' ? 'BACK' : '이전'}
+                </Button>
+              }
+            />
+          </StepperBottomButtonDiv>
+        </ContentDiv>
       </WrapBox>
     </div>
   )
 }
 
 const WrapBox = Styled.div`
-  max-width: 1000px;
   width: 100%;
+  max-width: 600px;
   display: inline-block;
   padding-top: 56px;
+  padding-bottom: 100px;
+`
+const ContentDiv = Styled.div`
+  width: 100%;
 `
 const AppBarDiv = Styled.div`
   border-bottom: 1px solid #EBEBEB;
@@ -580,6 +586,7 @@ const QuestionSelectDiv = Styled.div`
   white-space: break-spaces;
 `
 const StepperBottomButtonDiv = Styled.div`
+  max-width: 600px;
   width: 100%;
   overflow: hidden;
   position: fixed;
