@@ -432,7 +432,7 @@ const LanguageOfLoveQuestion = () => {
       </Head>
       <AppBarDiv>
         <AppBarDetailDiv>
-          {/* <IconButton
+          <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -443,7 +443,7 @@ const LanguageOfLoveQuestion = () => {
             }}
           >
             <ArrowBackIosNewRoundedIcon />
-          </IconButton> */}
+          </IconButton>
           <TranslateToSelectDiv>
             <FormControl sx={{ m: 1, minWidth: 140 }} size="small">
               <InputLabel>Translate to</InputLabel>
@@ -556,7 +556,7 @@ const AppBarDiv = Styled.div`
 `
 const AppBarDetailDiv = Styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   width: calc(100% - 32px);
   margin-top: 6px;
   margin-right: 16px;
